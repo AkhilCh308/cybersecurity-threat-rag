@@ -10,7 +10,7 @@ This project is an interactive **Streamlit web application** that uses **LlamaIn
 - Fully open-source and runs locally.
 
 ## 🏗️ Architecture
-![Architecture Diagram](assets/architecture_diagram.png)
+![Architecture Diagram](architecture_diagram.png)
 
 1. **User Inputs** — Number of URLs, URLs, and a natural language question in the Streamlit UI.
 2. **Web Scraper** — Fetches HTML and converts to clean text.
