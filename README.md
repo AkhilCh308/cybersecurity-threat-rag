@@ -45,40 +45,54 @@ streamlit run main.py
 - Groq API Key
 
 ```mermaid
-flowchart LR
-    %% ==== Sections ====
-    subgraph UI["🖥️ User Input"]
-        A[User enters URLs & Question<br/>via Streamlit UI]
+flowchart TB
+    %% ==== USER INTERFACE LAYER ====
+    subgraph UI["🖥️ User Interface Layer"]
+        A[User in Streamlit Web App]
     end
 
-    subgraph Ingestion["🌐 Data Ingestion"]
-        B[SimpleWebPageReader<br/>Fetch & Clean Web Pages]
-        C[SimpleNodeParser<br/>Split into Chunks]
+    %% ==== DATA INGESTION LAYER ====
+    subgraph Ingestion["🌐 Data Ingestion Layer"]
+        B1[URL Loader<br/>(SimpleWebPageReader)]
+        B2[HTML to Clean Text Conversion]
+        B3[Text Chunking<br/>(SimpleNodeParser)]
     end
 
-    subgraph Embedding["🔍 Embedding & Storage"]
-        D[HuggingFace Embeddings<br/>Generate Vectors]
-        E[Chroma Vector Store<br/>Persistent Storage]
+    %% ==== EMBEDDING & STORAGE LAYER ====
+    subgraph Embedding["🧠 Embedding & Vector Storage Layer"]
+        C1[Embedding Generator<br/>(HuggingFace all-MiniLM-L6-v2)]
+        C2[Persistent Vector Store<br/>(ChromaDB)]
     end
 
-    subgraph Retrieval["🤖 Retrieval & LLM"]
-        F[Retrieve Relevant Chunks]
-        G[Groq LLM<br/>Generate Answer + Sources]
+    %% ==== RETRIEVAL & GENERATION LAYER ====
+    subgraph Retrieval["🤖 Retrieval & LLM Layer"]
+        D1[Retriever<br/>(Similarity Search)]
+        D2[Groq LLM<br/>(Llama 3.3 70B Versatile)]
+        D3[Answer Synthesis with Citations]
     end
 
-    subgraph Output["📄 Output"]
-        H[Final Answer Displayed<br/>with Clickable Sources]
+    %% ==== OUTPUT LAYER ====
+    subgraph Output["📄 Output Layer"]
+        E1[Answer Displayed in Streamlit]
+        E2[Sources as Clickable Links]
     end
 
-    %% ==== Connections ====
-    A --> B
-    B --> C
-    C --> D
-    D --> E
-    A --> F
-    E --> F
-    F --> G
-    G --> H
+    %% ==== FLOW CONNECTIONS ====
+    %% User Input to Ingestion
+    A -->|Enter URLs & Question| B1
+    B1 --> B2 --> B3
+
+    %% Ingestion to Embedding
+    B3 --> C1 --> C2
+
+    %% Retrieval Path
+    A -->|Query Request| D1
+    C2 --> D1 --> D2 --> D3
+
+    %% Final Output
+    D3 --> E1
+    D3 --> E2
+
 ```
 
 ## 📚 Example Trusted Sources
