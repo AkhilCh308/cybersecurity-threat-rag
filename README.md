@@ -44,6 +44,43 @@ streamlit run main.py
 - ChromaDB
 - Groq API Key
 
+```mermaid
+flowchart LR
+    %% ==== Sections ====
+    subgraph UI["🖥️ User Input"]
+        A[User enters URLs & Question<br/>via Streamlit UI]
+    end
+
+    subgraph Ingestion["🌐 Data Ingestion"]
+        B[SimpleWebPageReader<br/>Fetch & Clean Web Pages]
+        C[SimpleNodeParser<br/>Split into Chunks]
+    end
+
+    subgraph Embedding["🔍 Embedding & Storage"]
+        D[HuggingFace Embeddings<br/>Generate Vectors]
+        E[Chroma Vector Store<br/>Persistent Storage]
+    end
+
+    subgraph Retrieval["🤖 Retrieval & LLM"]
+        F[Retrieve Relevant Chunks]
+        G[Groq LLM<br/>Generate Answer + Sources]
+    end
+
+    subgraph Output["📄 Output"]
+        H[Final Answer Displayed<br/>with Clickable Sources]
+    end
+
+    %% ==== Connections ====
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    A --> F
+    E --> F
+    F --> G
+    G --> H
+```
+
 ## 📚 Example Trusted Sources
 - https://www.cisa.gov/news-events/cybersecurity-advisories
 - https://nvd.nist.gov/vuln/full-listing
