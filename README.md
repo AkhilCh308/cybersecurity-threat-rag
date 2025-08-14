@@ -26,3 +26,26 @@ git clone https://github.com/<your-username>/cybersecurity-threat-rag.git
 cd cybersecurity-threat-rag
 pip install -r requirements.txt
 ```
+
+## 🔑 Environment Variables
+```env
+GROQ_API_KEY=your_groq_api_key_here
+```
+
+## ▶️ Run the App
+```bash
+streamlit run main.py
+```
+
+## 🛠️ Requirements
+- Python 3.9+
+- Streamlit
+- LlamaIndex
+- ChromaDB
+- Groq API Key
+
+## 📚 Example Trusted Sources
+- https://www.cisa.gov/news-events/cybersecurity-advisories
+- https://nvd.nist.gov/vuln/full-listing
+- https://unit42.paloaltonetworks.com/
+- https://www.crowdstrike.com/blog/category/threat-intel/
